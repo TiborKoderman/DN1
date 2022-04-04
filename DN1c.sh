@@ -6,12 +6,27 @@
 #temp = ${temp | sed G}
 #echo "$(grep $1 -R --include \*.$2 -e $3 -n)"
 
-#echo -e ${temp//:/ : }
-temp="`grep $1 -R --include \*.$2 -e $3 -n | awk '{$1=$1};1'`"
+# temp="`grep $1 -R --include \*.$2 -e $3 -n | awk '{$1=$1};1'`"
 
-temp=${temp//":"/" : "}
-# temp=${temp//"\n /"/"\n/"}
+# echo "$temp"
+
+#printf "D%s\n" $temp
+temp=`grep $1 -R --include \*.$2 -e $3 -n`
 #awk '{$temp=$temp;print}'
-#temp=${temp//"n "/"n"}
+temp=${temp//":"/" : "}
 echo "$temp"
+
+#temp="/tmp/OS-DN1/imenik/program1.py:5:import torch\n/tmp/OS-DN1/imenik/program2.py:1:import torch.backends.cudnn as cudnn"
+
+# while read line
+# do
+# printf "%s : %s : %s\n" "$(echo "$line" | cut -d":" -f 1)" "$(echo "$line" | cut -d":" -f 2)" "$(echo "$line" | cut -d":" -f 3)"
+
+# done <<< "$temp"
+
+#printf "%s %s %s\n" $temp
+
+
+#temp=${temp//"\n /"/"\n/"}
+#temp=${temp//"n "/"n"}
 #printf $temp
