@@ -1,19 +1,23 @@
 #!/bin/bash
 counter=0
-for f in $1
+#echo "$1"
+for t in $1/*
 do
-    #echo "$1/$f > $2/$f"
-
-    # if [ ! -e "$2/$f" ]
-    # then
-    #     cp -r "$1/$f" "$2/$f"
-    #     ((counter++))
-    # elif [[ $(cmp -s "$1/$f" "$2/$f") -eq 0 ]]
-    # then
-    #     cp -fr "$1/$f" "$2/$f"
-    #     ((counter++))
-    # fi
-
+    f=$(basename "$t" suffix)
+    #echo "$2/$f"
+    #echo $f
+    if [ ! -e "$2/$f" ]
+    then
+        #echo "$1/$f > $2/$f"
+        cp -rf "$1/$f" "$2/$f"
+        ((counter++))
+    elif [ $(cmp -s "$1/$f" "$2/$f"; echo $?) -ne 0 ]
+    #elif [ $(diff -qr "$1/$f" "$2/$f") != ""]
+    then
+        #echo "$1/$f > $2/$f"
+        cp -fr "$1/$f" "$2/$f"
+        ((counter++))
+    fi
 
 done
 
