@@ -11,11 +11,11 @@
 # echo "$temp"
 
 #printf "D%s\n" $temp
-temp=`grep $1 -R --include \*.$2 -e $3 -n`
 #awk '{$temp=$temp;print}'
 #temp=${temp//":"/" : "}
 #echo "$temp"
 
+temp=`grep $1 -R --include \*.$2 -e $3 -n`
 while read -r line
 do
     echo ${line//":"/" : "}
