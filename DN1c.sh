@@ -7,9 +7,11 @@
 #echo "$(grep $1 -R --include \*.$2 -e $3 -n)"
 
 #echo -e ${temp//:/ : }
-temp="`grep $1 -R --include \*.$2 -e $3 -n`"
-#temp=${temp//"n /"/"n"}
+temp="`grep $1 -R --include \*.$2 -e $3 -n | awk '{$1=$1};1'`"
+
 temp=${temp//":"/" : "}
+# temp=${temp//"\n /"/"\n/"}
+#awk '{$temp=$temp;print}'
 #temp=${temp//"n "/"n"}
 echo "$temp"
 #printf $temp
