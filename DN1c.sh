@@ -13,8 +13,14 @@
 #printf "D%s\n" $temp
 temp=`grep $1 -R --include \*.$2 -e $3 -n`
 #awk '{$temp=$temp;print}'
-temp=${temp//":"/" : "}
-echo "$temp"
+#temp=${temp//":"/" : "}
+#echo "$temp"
+
+while read -r line
+do
+    echo ${line//":"/" : "}
+done <<< $temp
+
 
 #temp="/tmp/OS-DN1/imenik/program1.py:5:import torch\n/tmp/OS-DN1/imenik/program2.py:1:import torch.backends.cudnn as cudnn"
 
