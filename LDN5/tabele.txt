@@ -1,0 +1,135 @@
+route -n ; route -A inet6
+
+#PC1
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.5.1     0.0.0.0         UG    0      0        0 eth0
+192.168.5.0     0.0.0.0         255.255.255.0   U     0      0        0 eth0
+Kernel IPv6 routing table
+Destination                                 Next Hop                                Flags Metric Ref    Use Iface
+2001:db8:ef:5::/64                          ::                                      U     256    1        0 eth0    
+fe80::/64                                   ::                                      U     256    1        0 eth0    
+::/0                                        2001:db8:ef:5::1                        UG    1024   5        0 eth0    
+::1/128                                     ::                                      Un    0      3        0 lo      
+2001:db8:ef:5::2/128                        ::                                      Un    0      6        0 eth0    
+fe80::588f:21ff:fe37:3260/128               ::                                      Un    0      6        0 eth0    
+ff00::/8                                    ::                                      U     256    5        0 eth0    
+::/0                                        ::                                      !n    -1     1        0 lo      
+
+
+#PC2
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.16.1.1      0.0.0.0         UG    0      0        0 eth0
+172.16.1.0      0.0.0.0         255.255.255.0   U     0      0        0 eth0
+Kernel IPv6 routing table
+Destination                                 Next Hop                                Flags Metric Ref    Use Iface
+2001:db8:1:ef::/64                          ::                                      U     256    1        0 eth0    
+fe80::/64                                   ::                                      U     256    1        0 eth0    
+::/0                                        2001:db8:1:ef::1                        UG    1024   1        0 eth0    
+::1/128                                     ::                                      Un    0      3        0 lo      
+2001:db8:1:ef::2/128                        ::                                      Un    0      2        0 eth0    
+fe80::3414:10ff:fe2e:e62b/128               ::                                      Un    0      2        0 eth0    
+ff00::/8                                    ::                                      U     256    2        0 eth0    
+::/0                                        ::                                      !n    -1     1        0 lo      
+
+
+
+
+sudo route -n ; sudo route -A inet6
+#R1
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.0.0.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
+10.0.1.0        10.0.0.1        255.255.255.0   UG    0      0        0 eth0
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      0        0 lo
+172.16.1.0      10.0.0.1        255.255.255.0   UG    0      0        0 eth0
+192.168.5.0     0.0.0.0         255.255.255.0   U     0      0        0 eth1
+Kernel IPv6 routing table
+Destination                    Next Hop                   Flag Met Ref Use If
+::1/128                        ::                         U    256 0     0 lo
+2001:db8:1:f::/64              2001:db8:e::1              UG   1024 0     0 eth0
+2001:db8:1:ef::/64             2001:db8:e::1              UG   1024 0     0 eth0
+2001:db8:e::/64                ::                         U    256 0     2 eth0
+2001:db8:ef:5::/64             ::                         U    256 0     0 eth1
+fe80::/64                      ::                         U    256 0     0 eth1
+fe80::/64                      ::                         U    256 0     0 eth0
+::/0                           ::                         !n   -1  1    14 lo
+::1/128                        ::                         Un   0   1  4024 lo
+2001:db8:e::/128               ::                         Un   0   1     0 lo
+2001:db8:e::2/128              ::                         Un   0   1     2 lo
+2001:db8:ef:5::/128            ::                         Un   0   1     0 lo
+2001:db8:ef:5::1/128           ::                         Un   0   1     2 lo
+fe80::/128                     ::                         Un   0   1     0 lo
+fe80::/128                     ::                         Un   0   1     0 lo
+fe80::e1b:dbff:fe4e:0/128      ::                         Un   0   1     9 lo
+fe80::e1b:dbff:fe4e:1/128      ::                         Un   0   1     9 lo
+ff00::/8                       ::                         U    256 0     0 eth1
+ff00::/8                       ::                         U    256 0     0 eth0
+::/0                           ::                         !n   -1  1    14 lo
+
+
+
+#R2
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.0.0.0        0.0.0.0         255.255.255.0   U     0      0        0 eth1
+10.0.1.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      0        0 lo
+172.16.1.0      10.0.1.2        255.255.255.0   UG    0      0        0 eth0
+192.168.5.0     10.0.0.2        255.255.255.0   UG    0      0        0 eth1
+Kernel IPv6 routing table
+Destination                    Next Hop                   Flag Met Ref Use If
+::1/128                        ::                         U    256 0     0 lo
+2001:db8:1:f::/64              ::                         U    256 0     1 eth0
+2001:db8:1:ef::/64             2001:db8:1:f::2            UG   1024 0     0 eth0
+2001:db8:e::/64                ::                         U    256 0     1 eth1
+2001:db8:ef:5::/64             2001:db8:e::2              UG   1024 0     0 eth1
+fe80::/64                      ::                         U    256 0     0 eth1
+fe80::/64                      ::                         U    256 0     0 eth0
+::/0                           ::                         !n   -1  1     9 lo
+::1/128                        ::                         Un   0   1  3880 lo
+2001:db8:1:f::/128             ::                         Un   0   1     0 lo
+2001:db8:1:f::1/128            ::                         Un   0   1     2 lo
+2001:db8:e::/128               ::                         Un   0   1     0 lo
+2001:db8:e::1/128              ::                         Un   0   1     2 lo
+fe80::/128                     ::                         Un   0   1     0 lo
+fe80::/128                     ::                         Un   0   1     0 lo
+fe80::e8e:c4ff:feaf:0/128      ::                         Un   0   1     9 lo
+fe80::e8e:c4ff:feaf:1/128      ::                         Un   0   1     9 lo
+ff00::/8                       ::                         U    256 0     0 eth1
+ff00::/8                       ::                         U    256 0     0 eth0
+::/0                           ::                         !n   -1  1     9 lo
+
+
+
+#R3
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.0.0.0        10.0.1.1        255.255.255.0   UG    0      0        0 eth0
+10.0.1.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      0        0 lo
+172.16.1.0      0.0.0.0         255.255.255.0   U     0      0        0 eth1
+192.168.5.0     10.0.1.1        255.255.255.0   UG    0      0        0 eth0
+Kernel IPv6 routing table
+Destination                    Next Hop                   Flag Met Ref Use If
+::1/128                        ::                         U    256 0     0 lo
+2001:db8:1:f::/64              ::                         U    256 0     2 eth0
+2001:db8:1:ef::/64             ::                         U    256 0     0 eth1
+2001:db8:e::/64                2001:db8:1:f::1            UG   1024 0     0 eth0
+2001:db8:ef:5::/64             2001:db8:1:f::1            UG   1024 0     0 eth0
+fe80::/64                      ::                         U    256 0     0 eth1
+fe80::/64                      ::                         U    256 0     0 eth0
+::/0                           ::                         !n   -1  1     9 lo
+::1/128                        ::                         Un   0   1  3724 lo
+2001:db8:1:f::/128             ::                         Un   0   1     0 lo
+2001:db8:1:f::2/128            ::                         Un   0   1     2 lo
+2001:db8:1:ef::/128            ::                         Un   0   1     0 lo
+2001:db8:1:ef::1/128           ::                         Un   0   1     2 lo
+fe80::/128                     ::                         Un   0   1     0 lo
+fe80::/128                     ::                         Un   0   1     0 lo
+fe80::e2a:55ff:fe71:0/128      ::                         Un   0   1     9 lo
+fe80::e2a:55ff:fe71:1/128      ::                         Un   0   1     9 lo
+ff00::/8                       ::                         U    256 0     0 eth1
+ff00::/8                       ::                         U    256 0     0 eth0
+::/0                           ::                         !n   -1  1     9 lo
